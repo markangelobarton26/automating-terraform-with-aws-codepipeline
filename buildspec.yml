@@ -15,23 +15,37 @@ phases:
     commands:
       - echo Logging in to AWS
       - aws sts get-caller-identity
-      - export DEMO_STAGE=$(cat demo-config.txt 2>/dev/null || echo "stage1-basic-ec2")
+      - export DEMO_STAGE=$(sed -n '1p' demo-config.txt 2>/dev/null || echo "stage1-basic-ec2")
+      - export OPERATION=$(sed -n '2p' demo-config.txt 2>/dev/null || echo "apply")
       - echo "Demo Stage:" $DEMO_STAGE
+      - echo "Operation:" $OPERATION
       - cd demo-project/$DEMO_STAGE
-      - echo "Ready to deploy" $DEMO_STAGE
+      - echo "Ready to" $OPERATION $DEMO_STAGE
 
   build:
     commands:
-      - echo Starting Terraform deployment for $DEMO_STAGE
+      - echo Starting Terraform $OPERATION for $DEMO_STAGE
       - terraform init
-      - terraform plan -out=tfplan
-      - terraform apply -auto-approve tfplan
+      - |
+        if [ "$OPERATION" = "destroy" ]; then
+          echo "Destroying resources..."
+          terraform destroy -auto-approve
+        else
+          echo "Deploying resources..."
+          terraform plan -out=tfplan
+          terraform apply -auto-approve tfplan
+        fi
 
   post_build:
     commands:
-      - echo Terraform deployment completed
-      - terraform output
-      - echo "✅ Deployment successful!"
+      - echo Terraform $OPERATION completed
+      - |
+        if [ "$OPERATION" = "destroy" ]; then
+          echo "✅ $DEMO_STAGE destroyed successfully!"
+        else
+          terraform output
+          echo "✅ $DEMO_STAGE deployment successful!"
+        fi
 
 artifacts:
   files:
