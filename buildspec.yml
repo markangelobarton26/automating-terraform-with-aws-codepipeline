@@ -16,12 +16,11 @@ phases:
       - echo Logging in to AWS
       - aws sts get-caller-identity
       - |
-        # Read demo stage from config file
         if [ -f "demo-config.txt" ]; then
-          DEMO_STAGE=$(cat demo-config.txt | tr -d '\n')
+          export DEMO_STAGE=$(cat demo-config.txt | tr -d '\n')
           echo "Demo Stage from config: $DEMO_STAGE"
         else
-          DEMO_STAGE="stage1-basic-ec2"
+          export DEMO_STAGE="stage1-basic-ec2"
           echo "Demo Stage (default): $DEMO_STAGE"
         fi
       - echo "Deploying: $DEMO_STAGE"
@@ -31,26 +30,25 @@ phases:
         terraform {
           backend "s3" {
             bucket = "${TF_STATE_BUCKET}"
-            key    = "$DEMO_STAGE/terraform.tfstate"
-            region = "us-east-1"
+            key    = "\$DEMO_STAGE/terraform.tfstate"
+            region = "ap-southeast-1"
           }
         }
         EOF
       - echo "Manual prerequisites assumed to be set up"
-      - echo "Ready to deploy $DEMO_STAGE"
+      - echo "Ready to deploy \$DEMO_STAGE"
 
   build:
     commands:
-      - echo Starting Terraform deployment for $DEMO_STAGE
+      - echo Starting Terraform deployment for \$DEMO_STAGE
       - terraform init
       - |
-        if [ "$DEMO_STAGE" = "stage4-manual-approval" ]; then
-          # Deploy both test and prod for stage 4
+        if [ "\$DEMO_STAGE" = "stage4-manual-approval" ]; then
           echo "Deploying test environment..."
           terraform plan -var="environment=test" -out=tfplan-test
           terraform apply -auto-approve tfplan-test
           echo "Deploying prod environment..."
-          terraform plan -var="environment=prod" -out=tfplan-prod  
+          terraform plan -var="environment=prod" -out=tfplan-prod
           terraform apply -auto-approve tfplan-prod
         else
           terraform plan -out=tfplan
@@ -61,7 +59,7 @@ phases:
     commands:
       - echo Terraform deployment completed
       - terraform output
-      - echo "✅ ${DEMO_STAGE:-stage1-basic-ec2} deployment successful!"
+      - echo "✅ \$DEMO_STAGE deployment successful!"
 
 artifacts:
   files:
