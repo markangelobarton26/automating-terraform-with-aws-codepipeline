@@ -33,10 +33,30 @@ Deploy a simple EC2 instance to understand basic Terraform deployment in CI/CD.
 2. **Security Groups**: *"Port 22 open to the world? That's a security audit failure."*
 3. **No Flexibility**: *"Want to change instance type? You need to modify code."*
 
+## 🚀 Deploy This Stage
+
+### Via Pipeline (Recommended)
+```bash
+# Update demo-config.txt and push to trigger pipeline
+echo "stage1-basic-ec2" > demo-config.txt
+git add demo-config.txt
+git commit -m "Deploy Stage 1: Basic EC2 with security issues"
+git push
+```
+
+### Manual Deployment
+```bash
+# Deploy this stage locally
+cd demo-project/stage1-basic-ec2
+terraform init
+terraform apply
+```
+
 ## 🔄 Pipeline Behavior
-- ✅ Deploys successfully in us-east-1
-- ❌ Would fail in other regions
+- ✅ Deploys successfully in ap-southeast-1
+- ❌ Would fail in other regions (hardcoded AMI)
 - ⚠️ Creates security vulnerabilities
+- 📍 State stored: `anthony-terraform-tfstate/automating-terraform-with-aws-codepipeline/stage1/`
 
 ## 🎯 Next Stage Preview
 *"In Stage 2, we'll fix the hardcoded values using AWS Parameter Store for better configuration management."*

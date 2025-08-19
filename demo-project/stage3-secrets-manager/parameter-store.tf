@@ -1,6 +1,6 @@
 # Get AMI ID from Parameter Store
 data "aws_ssm_parameter" "amazon_linux_ami" {
-  name = "/aws/service/ami-amazon-linux-latest/amzn2-ami-hvm-x86_64-gp2"
+  name = "/demo/ec2/ami-id"
 }
 
 # Get instance type from Parameter Store

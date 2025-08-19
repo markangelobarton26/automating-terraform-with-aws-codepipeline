@@ -3,11 +3,23 @@
 ## 🎯 Learning Goal
 Implement enterprise-grade secrets management using AWS Secrets Manager.
 
-## 🔧 Setup Required
-1. Ensure Parameter Store is configured (from Stage 2)
-2. Run the secrets setup script:
+## 🚀 Deploy This Stage
+
+### Via Pipeline (Recommended)
 ```bash
-./setup-secrets.sh
+# Update demo-config.txt and push to trigger pipeline
+echo "stage3-secrets-manager" > demo-config.txt
+git add demo-config.txt
+git commit -m "Deploy Stage 3: Secrets Manager integration"
+git push
+```
+
+### Manual Deployment
+```bash
+# Prerequisites auto-created by pipeline infrastructure
+cd demo-project/stage3-secrets-manager
+terraform init
+terraform apply
 ```
 
 ## 🔐 Security Achievements
@@ -66,6 +78,8 @@ Implement enterprise-grade secrets management using AWS Secrets Manager.
 - ✅ No secrets in code or state files
 - ✅ Supports automatic credential rotation
 - ✅ Full audit trail of secret access
+- ✅ Prerequisites auto-created by pipeline infrastructure
+- 📍 State stored: `anthony-terraform-tfstate/automating-terraform-with-aws-codepipeline/stage3/`
 
 ## 💰 Cost Analysis
 - **Parameter Store**: Free for standard parameters

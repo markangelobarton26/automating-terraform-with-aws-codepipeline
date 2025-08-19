@@ -3,10 +3,23 @@
 ## 🎯 Learning Goal
 Use AWS Systems Manager Parameter Store for centralized configuration management.
 
-## 🔧 Setup Required
-Run the setup script before deployment:
+## 🚀 Deploy This Stage
+
+### Via Pipeline (Recommended)
 ```bash
-./setup-parameters.sh
+# Update demo-config.txt and push to trigger pipeline
+echo "stage2-parameter-store" > demo-config.txt
+git add demo-config.txt
+git commit -m "Deploy Stage 2: Parameter Store integration"
+git push
+```
+
+### Manual Deployment
+```bash
+# Prerequisites auto-created by pipeline infrastructure
+cd demo-project/stage2-parameter-store
+terraform init
+terraform apply
 ```
 
 ## ✅ Security Improvements
@@ -61,6 +74,8 @@ Run the setup script before deployment:
 - ✅ Works in any AWS region
 - ✅ Retrieves latest AMI automatically
 - ✅ Uses restricted CIDR blocks
+- ✅ Prerequisites auto-created by pipeline infrastructure
+- 📍 State stored: `anthony-terraform-tfstate/automating-terraform-with-aws-codepipeline/stage2/`
 - ⚠️ Still no secrets management
 
 ## 🎯 Next Stage Preview

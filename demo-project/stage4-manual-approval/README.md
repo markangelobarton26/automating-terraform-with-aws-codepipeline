@@ -3,20 +3,28 @@
 ## 🎯 Learning Goal
 Demonstrate environment-specific deployments with manual approval for production.
 
-## 🔧 Setup Required
+## 🚀 Deploy This Stage
+
+### Via Pipeline (Recommended)
 ```bash
-./setup-environment.sh  # Creates environment-specific parameters and secrets
+# Update demo-config.txt and push to trigger pipeline
+echo "stage4-manual-approval" > demo-config.txt
+git add demo-config.txt
+git commit -m "Deploy Stage 4: Manual approval workflow"
+git push
 ```
 
-## 🚀 Deployment Options
+### Manual Deployment Options
 
-### Test Environment (Auto-approved)
+#### Test Environment
 ```bash
+# Prerequisites auto-created by pipeline infrastructure
+cd demo-project/stage4-manual-approval
 terraform init
 terraform apply -var="environment=test"
 ```
 
-### Production Environment (Manual approval required)
+#### Production Environment
 ```bash
 terraform apply -var="environment=prod"
 ```
@@ -68,9 +76,11 @@ terraform apply -var="environment=prod"
 
 ## 🔄 Pipeline Behavior
 - ✅ Test deploys automatically
-- ⏸️ Production waits for approval
+- ⏸️ Production waits for approval (in full pipeline)
 - 🎨 Visual distinction between environments
 - 🔒 Environment-specific secrets
+- ✅ Prerequisites auto-created by pipeline infrastructure
+- 📍 State stored: `anthony-terraform-tfstate/automating-terraform-with-aws-codepipeline/stage4/`
 
 ## 🎯 Production Pipeline Integration
 In a real CodePipeline, this would include:
