@@ -1,0 +1,16 @@
+version: '3.8'
+
+services:
+  terraform-demo:
+    build: .
+    container_name: terraform-security-demo
+    volumes:
+      - ~/.aws:/root/.aws:ro  # Mount AWS credentials (read-only)
+      - .:/demo               # Mount current directory for live editing
+    environment:
+      - AWS_REGION=us-east-1
+      - TF_LOG=INFO
+    working_dir: /demo
+    stdin_open: true
+    tty: true
+    command: /bin/bash

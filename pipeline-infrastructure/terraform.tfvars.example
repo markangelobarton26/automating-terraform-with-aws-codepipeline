@@ -1,0 +1,8 @@
+# GitHub Configuration
+github_connection_arn = "arn:aws:codestar-connections:us-east-1:123456789012:connection/your-connection-id"
+github_repo_url       = "https://github.com/your-username/your-repo-name"
+github_branch         = "main"
+
+# Project Configuration
+project_name = "terraform-demo"
+aws_region   = "us-east-1"
