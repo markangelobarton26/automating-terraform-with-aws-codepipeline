@@ -1,6 +1,8 @@
 terraform {
   backend "s3" {
-    # Will be configured by pipeline
+    bucket = "anthony-terraform-tfstate"
+    key    = "automating-terraform-with-aws-codepipeline/stage4/terraform.tfstate"
+    region = "ap-southeast-1"
   }
   required_providers {
     aws = {

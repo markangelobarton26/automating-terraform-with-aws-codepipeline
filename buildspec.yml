@@ -18,7 +18,6 @@ phases:
       - export DEMO_STAGE=$(cat demo-config.txt 2>/dev/null || echo "stage1-basic-ec2")
       - echo "Demo Stage:" $DEMO_STAGE
       - cd demo-project/$DEMO_STAGE
-      - echo "terraform { backend \"s3\" { bucket = \"${TF_STATE_BUCKET}\" key = \"$DEMO_STAGE/terraform.tfstate\" region = \"ap-southeast-1\" } }" > backend.tf
       - echo "Ready to deploy" $DEMO_STAGE
 
   build:
