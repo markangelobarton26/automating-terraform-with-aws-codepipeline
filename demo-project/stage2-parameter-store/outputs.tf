@@ -16,11 +16,13 @@ output "web_url" {
 output "ami_used" {
   description = "AMI ID retrieved from Parameter Store"
   value       = data.aws_ssm_parameter.amazon_linux_ami.value
+  sensitive   = true
 }
 
 output "instance_type_used" {
   description = "Instance type retrieved from Parameter Store"
   value       = data.aws_ssm_parameter.instance_type.value
+  sensitive   = true
 }
 
 output "security_improvements" {
