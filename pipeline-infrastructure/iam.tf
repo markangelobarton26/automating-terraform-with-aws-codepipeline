@@ -41,7 +41,9 @@ resource "aws_iam_role_policy" "codebuild_policy" {
           aws_s3_bucket.terraform_state.arn,
           "${aws_s3_bucket.terraform_state.arn}/*",
           aws_s3_bucket.pipeline_artifacts.arn,
-          "${aws_s3_bucket.pipeline_artifacts.arn}/*"
+          "${aws_s3_bucket.pipeline_artifacts.arn}/*",
+          "arn:aws:s3:::anthony-terraform-tfstate",
+          "arn:aws:s3:::anthony-terraform-tfstate/*"
         ]
       },
       {

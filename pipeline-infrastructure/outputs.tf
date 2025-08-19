@@ -1,11 +1,7 @@
+# Pipeline outputs
 output "pipeline_name" {
   description = "Name of the CodePipeline"
   value       = aws_codepipeline.terraform_pipeline.name
-}
-
-output "pipeline_url" {
-  description = "URL to the CodePipeline console"
-  value       = "https://${var.aws_region}.console.aws.amazon.com/codesuite/codepipeline/pipelines/${aws_codepipeline.terraform_pipeline.name}/view"
 }
 
 output "codebuild_project_name" {
@@ -23,12 +19,22 @@ output "pipeline_artifacts_bucket" {
   value       = aws_s3_bucket.pipeline_artifacts.bucket
 }
 
-output "next_steps" {
-  description = "Next steps for the demo"
-  value = [
-    "1. Push this repository to GitHub",
-    "2. Pipeline will automatically trigger",
-    "3. Check pipeline status: ${aws_codepipeline.terraform_pipeline.name}",
-    "4. View deployed resources in AWS console"
-  ]
+# Prerequisites outputs
+output "parameter_store_parameters" {
+  description = "Created Parameter Store parameters"
+  value = {
+    instance_type      = aws_ssm_parameter.instance_type.name
+    allowed_cidr       = aws_ssm_parameter.allowed_cidr.name
+    test_instance_type = aws_ssm_parameter.test_instance_type.name
+    prod_instance_type = aws_ssm_parameter.prod_instance_type.name
+  }
+}
+
+output "secrets_manager_secrets" {
+  description = "Created Secrets Manager secrets"
+  value = {
+    api_key      = aws_secretsmanager_secret.api_key.name
+    test_api_key = aws_secretsmanager_secret.test_api_key.name
+    prod_api_key = aws_secretsmanager_secret.prod_api_key.name
+  }
 }
