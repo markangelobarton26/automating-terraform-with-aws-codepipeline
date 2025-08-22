@@ -17,10 +17,12 @@ phases:
       - aws sts get-caller-identity
       - export DEMO_STAGE=$(sed -n '1p' demo-config.txt 2>/dev/null || echo "stage1-basic-ec2")
       - export OPERATION=$(sed -n '2p' demo-config.txt 2>/dev/null || echo "apply")
+      - export ENVIRONMENT=$(sed -n '3p' demo-config.txt 2>/dev/null || echo "test")
       - echo "Demo Stage:" $DEMO_STAGE
       - echo "Operation:" $OPERATION
+      - echo "Environment:" $ENVIRONMENT
       - cd demo-project/$DEMO_STAGE
-      - echo "Ready to" $OPERATION $DEMO_STAGE
+      - echo "Ready to" $OPERATION $DEMO_STAGE "in" $ENVIRONMENT "environment"
 
   build:
     commands:
@@ -29,11 +31,22 @@ phases:
       - |
         if [ "$OPERATION" = "destroy" ]; then
           echo "Destroying resources..."
-          terraform destroy -auto-approve
+          if [ "$DEMO_STAGE" = "stage4-manual-approval" ]; then
+            echo "Stage 4: Destroying $ENVIRONMENT environment"
+            terraform destroy -var="environment=$ENVIRONMENT" -auto-approve
+          else
+            terraform destroy -auto-approve
+          fi
         else
           echo "Deploying resources..."
-          terraform plan -out=tfplan
-          terraform apply -auto-approve tfplan
+          if [ "$DEMO_STAGE" = "stage4-manual-approval" ]; then
+            echo "Stage 4: Setting environment to $ENVIRONMENT"
+            terraform plan -var="environment=$ENVIRONMENT" -out=tfplan
+            terraform apply -auto-approve tfplan
+          else
+            terraform plan -out=tfplan
+            terraform apply -auto-approve tfplan
+          fi
         fi
 
   post_build:

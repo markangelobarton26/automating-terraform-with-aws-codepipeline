@@ -1,6 +1,6 @@
 # Get API key from Secrets Manager (environment-specific)
 data "aws_secretsmanager_secret" "api_key" {
-  name = "demo/${var.environment}/api-key"
+  name = "demo/${var.environment}/app/api-key"
 }
 
 data "aws_secretsmanager_secret_version" "api_key" {
