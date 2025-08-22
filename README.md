@@ -53,6 +53,56 @@ echo "stage4-manual-approval" > demo-config.txt
 git add . && git commit -m "Deploy Stage 4" && git push
 ```
 
+## 🎬 Consolidated Deployment Commands
+
+### Stage 1: Basic EC2 (Hardcoded Values)
+```bash
+echo -e "stage1-basic-ec2\napply" > demo-config.txt
+git add . && git commit -m "Deploy Stage 1: Basic EC2" && git push
+```
+
+### Stage 2: Parameter Store Integration
+```bash
+echo -e "stage2-parameter-store\napply" > demo-config.txt
+git add . && git commit -m "Deploy Stage 2: Parameter Store" && git push
+```
+
+### Stage 3: Secrets Manager Integration
+```bash
+echo -e "stage3-secrets-manager\napply" > demo-config.txt
+git add . && git commit -m "Deploy Stage 3: Secrets Manager" && git push
+```
+
+### Stage 4: Manual Approval Workflow
+```bash
+echo -e "stage4-manual-approval\napply" > demo-config.txt
+git add . && git commit -m "Deploy Stage 4: Manual Approval" && git push
+```
+
+### Cleanup (Destroy All Resources)
+```bash
+echo -e "stage4-manual-approval\ndestroy" > demo-config.txt
+git add . && git commit -m "Cleanup: Destroy all resources" && git push
+```
+
+### Quick Stage Switching (One-liners)
+```bash
+# Stage 1
+echo -e "stage1-basic-ec2\napply" > demo-config.txt && git add . && git commit -m "Stage 1" && git push
+
+# Stage 2
+echo -e "stage2-parameter-store\napply" > demo-config.txt && git add . && git commit -m "Stage 2" && git push
+
+# Stage 3
+echo -e "stage3-secrets-manager\napply" > demo-config.txt && git add . && git commit -m "Stage 3" && git push
+
+# Stage 4
+echo -e "stage4-manual-approval\napply" > demo-config.txt && git add . && git commit -m "Stage 4" && git push
+
+# Cleanup
+echo -e "stage4-manual-approval\ndestroy" > demo-config.txt && git add . && git commit -m "Cleanup" && git push
+```
+
 ## 📁 Repository Structure
 ```
 ├── demo-project/           # 4 progressive demo stages
@@ -65,4 +115,13 @@ git add . && git commit -m "Deploy Stage 4" && git push
 ## 📚 Documentation
 - [Visual Diagrams](docs/diagrams.md) - Architecture and security evolution
 - [Docker Setup](docs/DOCKER-SETUP.md) - Container-based demo
-- [Manual Demo Guide](docs/MANUAL-DEMO.md) - Step-by-step instructions# automating-terraform-with-aws-codepipeline
+- [Manual Demo Guide](docs/MANUAL-DEMO.md) - Step-by-step instructions
+
+## 🔐 Security Evolution Summary
+
+| Stage | Security Level | Features | Use Case |
+|-------|---------------|----------|----------|
+| **Stage 1** | ❌ Basic | Hardcoded values, open security groups | Learning/Demo only |
+| **Stage 2** | ⚙️ Good | Parameter Store, dynamic configuration | Development environments |
+| **Stage 3** | 🔐 Enterprise | Secrets Manager, encrypted secrets | Production-ready |
+| **Stage 4** | 🏆 Production | Manual approval, environment separation | Enterprise deployment |
