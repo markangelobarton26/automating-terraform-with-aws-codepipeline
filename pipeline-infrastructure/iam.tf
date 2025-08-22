@@ -111,6 +111,13 @@ resource "aws_iam_role_policy" "codepipeline_policy" {
           "codestar-connections:UseConnection"
         ]
         Resource = var.github_connection_arn
+      },
+      {
+        Effect = "Allow"
+        Action = [
+          "codepipeline:PutApprovalResult"
+        ]
+        Resource = "*"
       }
     ]
   })

@@ -683,6 +683,95 @@ http://&lt;EC2_PUBLIC_IP&gt;:80
             </div>
         </div>
 
+        <!-- Buildspec Flow -->
+        <div class="slide">
+            <h2>🔄 Buildspec.yml Flow Chart</h2>
+            
+            <div class="architecture-diagram">
+                <h3>CodeBuild Execution Flow</h3>
+                <div style="display: flex; flex-direction: column; align-items: center; gap: 15px; margin: 20px 0;">
+                    
+                    <!-- Install Phase -->
+                    <div style="background: #e3f2fd; border: 2px solid #1976d2; border-radius: 10px; padding: 15px; width: 80%; text-align: center;">
+                        <h4>📦 Install Phase</h4>
+                        <p>Install Terraform 1.5.0</p>
+                    </div>
+                    
+                    <div style="font-size: 24px; color: #1976d2;">↓</div>
+                    
+                    <!-- Pre-build Phase -->
+                    <div style="background: #fff3e0; border: 2px solid #f57c00; border-radius: 10px; padding: 15px; width: 80%; text-align: center;">
+                        <h4>🔍 Pre-build Phase</h4>
+                        <p>Read demo-config.txt</p>
+                        <div style="display: flex; justify-content: space-around; margin-top: 10px;">
+                            <div style="background: #fff; padding: 8px; border-radius: 5px; border: 1px solid #ddd;">
+                                <strong>Line 1:</strong> DEMO_STAGE<br>
+                                <small>(stage1-basic-ec2)</small>
+                            </div>
+                            <div style="background: #fff; padding: 8px; border-radius: 5px; border: 1px solid #ddd;">
+                                <strong>Line 2:</strong> OPERATION<br>
+                                <small>(apply/destroy)</small>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div style="font-size: 24px; color: #f57c00;">↓</div>
+                    
+                    <!-- Build Phase Decision -->
+                    <div style="background: #f3e5f5; border: 2px solid #7b1fa2; border-radius: 10px; padding: 15px; width: 80%; text-align: center;">
+                        <h4>🔨 Build Phase</h4>
+                        <p>terraform init</p>
+                        <div style="background: #fff9c4; border: 2px solid #f9a825; border-radius: 8px; padding: 10px; margin: 10px 0;">
+                            <strong>Decision Point:</strong> Check OPERATION variable
+                        </div>
+                    </div>
+                    
+                    <div style="display: flex; justify-content: space-around; width: 100%; margin: 20px 0;">
+                        <!-- Apply Path -->
+                        <div style="display: flex; flex-direction: column; align-items: center; width: 45%;">
+                            <div style="background: #e8f5e8; border: 2px solid #388e3c; border-radius: 10px; padding: 15px; text-align: center; width: 100%;">
+                                <h4>✅ If OPERATION = "apply"</h4>
+                                <ul style="text-align: left; margin: 10px 0;">
+                                    <li>terraform plan -out=tfplan</li>
+                                    <li>terraform apply -auto-approve tfplan</li>
+                                </ul>
+                            </div>
+                            <div style="font-size: 20px; color: #388e3c; margin: 10px 0;">↓</div>
+                            <div style="background: #e8f5e8; border: 1px solid #388e3c; border-radius: 8px; padding: 10px; text-align: center; width: 100%;">
+                                <strong>Post-build:</strong><br>
+                                terraform output<br>
+                                "✅ Deployment successful!"
+                            </div>
+                        </div>
+                        
+                        <!-- Destroy Path -->
+                        <div style="display: flex; flex-direction: column; align-items: center; width: 45%;">
+                            <div style="background: #ffebee; border: 2px solid #d32f2f; border-radius: 10px; padding: 15px; text-align: center; width: 100%;">
+                                <h4>🗑️ If OPERATION = "destroy"</h4>
+                                <ul style="text-align: left; margin: 10px 0;">
+                                    <li>terraform destroy -auto-approve</li>
+                                </ul>
+                            </div>
+                            <div style="font-size: 20px; color: #d32f2f; margin: 10px 0;">↓</div>
+                            <div style="background: #ffebee; border: 1px solid #d32f2f; border-radius: 8px; padding: 10px; text-align: center; width: 100%;">
+                                <strong>Post-build:</strong><br>
+                                "✅ Destroyed successfully!"
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="code-block">
+# demo-config.txt controls the flow:
+# Line 1: stage1-basic-ec2 | stage2-parameter-store | stage3-secrets-manager | stage4-manual-approval
+# Line 2: apply | destroy
+
+# Example:
+echo -e "stage2-parameter-store\napply" > demo-config.txt
+            </div>
+        </div>
+
         <!-- Demo Workflow -->
         <div class="slide">
             <h2>🎬 Complete Deployment Commands</h2>
@@ -693,36 +782,36 @@ http://&lt;EC2_PUBLIC_IP&gt;:80
                 <div class="demo-step">
                     <strong>Stage 1: Basic EC2 (Hardcoded Values)</strong>
                     <div class="code-block">echo -e "stage1-basic-ec2\napply" > demo-config.txt
-git add demo-config.txt
-git commit -m "Deploy Stage 1: Basic EC2 with hardcoded values"
-git push origin main</div>
+git add .
+git commit -m "Deploy Stage 1"
+git push</div>
                     <p>Deploys: EC2 with hardcoded AMI, open security groups (0.0.0.0/0)</p>
                 </div>
 
                 <div class="demo-step">
                     <strong>Stage 2: Parameter Store Integration</strong>
                     <div class="code-block">echo -e "stage2-parameter-store\napply" > demo-config.txt
-git add demo-config.txt
-git commit -m "Deploy Stage 2: Parameter Store integration"
-git push origin main</div>
+git add .
+git commit -m "Deploy Stage 2"
+git push</div>
                     <p>Deploys: EC2 with Parameter Store config, restricted CIDR</p>
                 </div>
 
                 <div class="demo-step">
                     <strong>Stage 3: Secrets Manager Integration</strong>
                     <div class="code-block">echo -e "stage3-secrets-manager\napply" > demo-config.txt
-git add demo-config.txt
-git commit -m "Deploy Stage 3: Secrets Manager enterprise security"
-git push origin main</div>
+git add .
+git commit -m "Deploy Stage 3"
+git push</div>
                     <p>Deploys: EC2 with encrypted secrets, enterprise-grade security</p>
                 </div>
 
                 <div class="demo-step">
                     <strong>Stage 4: Manual Approval Workflow</strong>
                     <div class="code-block">echo -e "stage4-manual-approval\napply" > demo-config.txt
-git add demo-config.txt
-git commit -m "Deploy Stage 4: Production workflow with manual approval"
-git push origin main</div>
+git add .
+git commit -m "Deploy Stage 4"
+git push</div>
                     <p>Deploys: Environment-specific resources with approval gates</p>
                 </div>
             </div>
@@ -738,33 +827,33 @@ git push origin main</div>
                 <div class="demo-step">
                     <strong>Destroy Stage 1</strong>
                     <div class="code-block">echo -e "stage1-basic-ec2\ndestroy" > demo-config.txt
-git add demo-config.txt
-git commit -m "Destroy Stage 1: Remove basic EC2 resources"
-git push origin main</div>
+git add .
+git commit -m "Destroy Stage 1"
+git push</div>
                 </div>
 
                 <div class="demo-step">
                     <strong>Destroy Stage 2</strong>
                     <div class="code-block">echo -e "stage2-parameter-store\ndestroy" > demo-config.txt
-git add demo-config.txt
-git commit -m "Destroy Stage 2: Remove Parameter Store resources"
-git push origin main</div>
+git add .
+git commit -m "Destroy Stage 2"
+git push</div>
                 </div>
 
                 <div class="demo-step">
                     <strong>Destroy Stage 3</strong>
                     <div class="code-block">echo -e "stage3-secrets-manager\ndestroy" > demo-config.txt
-git add demo-config.txt
-git commit -m "Destroy Stage 3: Remove Secrets Manager resources"
-git push origin main</div>
+git add .
+git commit -m "Destroy Stage 3"
+git push</div>
                 </div>
 
                 <div class="demo-step">
                     <strong>Destroy Stage 4 (Complete Cleanup)</strong>
                     <div class="code-block">echo -e "stage4-manual-approval\ndestroy" > demo-config.txt
-git add demo-config.txt
-git commit -m "Complete cleanup: Destroy all demo resources"
-git push origin main</div>
+git add .
+git commit -m "Destroy Stage 4"
+git push</div>
                     <p>Removes all infrastructure and returns to clean state</p>
                 </div>
             </div>
