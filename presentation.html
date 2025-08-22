@@ -332,7 +332,7 @@
         <div class="slide">
             <h2>🎯 Demo Overview</h2>
             <div class="architecture-diagram">
-                <h3>Complete System Architecture</h3>
+                <h3>End-to-End Workflow</h3>
                 
                 <!-- Developer Workflow -->
                 <div style="background: #f8f9fa; border: 2px solid #6c757d; border-radius: 15px; padding: 20px; margin-bottom: 20px; position: relative;">
@@ -780,6 +780,64 @@ terraform init && terraform apply
                 </ul>
             </div>
 
+            <!-- CodeBuild Execution Flow for Stage 1 -->
+            <div style="background: #f8f9fa; border-radius: 10px; padding: 20px; margin: 20px 0; position: relative;">
+                <div style="position: absolute; top: -10px; left: 15px; background: #f8f9fa; padding: 0 10px; font-weight: bold; color: #495057;">CodeBuild Execution Flow - Stage 1</div>
+                
+                <div style="display: flex; justify-content: space-between; align-items: center; margin: 20px 0;">
+                    
+                    <!-- Step 1: Read Config -->
+                    <div style="text-align: center; flex: 1;">
+                        <div style="background: #e3f2fd; border: 2px solid #1976d2; border-radius: 10px; padding: 15px;">
+                            <div style="font-size: 20px; margin-bottom: 8px;">📄</div>
+                            <div style="font-weight: bold; font-size: 12px; margin-bottom: 5px;">Read Config</div>
+                            <div style="font-size: 10px; color: #1976d2;">demo-config.txt</div>
+                            <div style="font-size: 9px; background: #fff; padding: 3px; border-radius: 3px; margin-top: 5px;">stage1-basic-ec2<br>apply</div>
+                        </div>
+                    </div>
+                    
+                    <div style="color: #1976d2; font-size: 20px; margin: 0 10px;">→</div>
+                    
+                    <!-- Step 2: Terraform Init -->
+                    <div style="text-align: center; flex: 1;">
+                        <div style="background: #fff3cd; border: 2px solid #f39c12; border-radius: 10px; padding: 15px;">
+                            <div style="font-size: 20px; margin-bottom: 8px;">⚙️</div>
+                            <div style="font-weight: bold; font-size: 12px; margin-bottom: 5px;">Terraform Init</div>
+                            <div style="font-size: 10px; color: #f39c12;">Initialize backend</div>
+                            <div style="font-size: 9px; background: #fff; padding: 3px; border-radius: 3px; margin-top: 5px;">Download providers<br>Setup state</div>
+                        </div>
+                    </div>
+                    
+                    <div style="color: #f39c12; font-size: 20px; margin: 0 10px;">→</div>
+                    
+                    <!-- Step 3: Direct Deploy -->
+                    <div style="text-align: center; flex: 1;">
+                        <div style="background: #ffebee; border: 2px solid #e74c3c; border-radius: 10px; padding: 15px;">
+                            <div style="font-size: 20px; margin-bottom: 8px;">🚀</div>
+                            <div style="font-weight: bold; font-size: 12px; margin-bottom: 5px;">Direct Deploy</div>
+                            <div style="font-size: 10px; color: #e74c3c;">Hardcoded values</div>
+                            <div style="font-size: 9px; background: #fff; padding: 3px; border-radius: 3px; margin-top: 5px;">ami-0779c82fbb81e731c<br>0.0.0.0/0 access</div>
+                        </div>
+                    </div>
+                    
+                    <div style="color: #e74c3c; font-size: 20px; margin: 0 10px;">→</div>
+                    
+                    <!-- Step 4: EC2 Created -->
+                    <div style="text-align: center; flex: 1;">
+                        <div style="background: #ffebee; border: 2px solid #e74c3c; border-radius: 10px; padding: 15px;">
+                            <img src="aws-diagrams/Architecture-Service-Icons_06072024/Arch_Compute/32/Arch_Amazon-EC2_32.png" alt="EC2" style="width: 24px; height: 24px; margin-bottom: 5px;">
+                            <div style="font-weight: bold; font-size: 12px; margin-bottom: 5px;">EC2 Instance</div>
+                            <div style="font-size: 10px; color: #e74c3c;">Insecure setup</div>
+                            <div style="font-size: 9px; background: #fff; padding: 3px; border-radius: 3px; margin-top: 5px;">⚠️ Security issues</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div style="text-align: center; margin-top: 15px; padding: 10px; background: #ffebee; border-radius: 5px;">
+                    <span style="color: #e74c3c; font-size: 12px; font-weight: bold;">⚠️ No external configuration - everything hardcoded in Terraform files</span>
+                </div>
+            </div>
+            
             <div class="demo-flow">
                 <h3>Demo Steps</h3>
                 <div class="demo-step">
@@ -888,6 +946,76 @@ terraform init && terraform apply
                 </ul>
             </div>
 
+            <!-- CodeBuild Execution Flow for Stage 2 -->
+            <div style="background: #f8f9fa; border-radius: 10px; padding: 20px; margin: 20px 0; position: relative;">
+                <div style="position: absolute; top: -10px; left: 15px; background: #f8f9fa; padding: 0 10px; font-weight: bold; color: #495057;">CodeBuild Execution Flow - Stage 2</div>
+                
+                <div style="display: flex; justify-content: space-between; align-items: center; margin: 20px 0;">
+                    
+                    <!-- Step 1: Read Config -->
+                    <div style="text-align: center; flex: 1;">
+                        <div style="background: #e3f2fd; border: 2px solid #1976d2; border-radius: 10px; padding: 15px;">
+                            <div style="font-size: 20px; margin-bottom: 8px;">📄</div>
+                            <div style="font-weight: bold; font-size: 12px; margin-bottom: 5px;">Read Config</div>
+                            <div style="font-size: 10px; color: #1976d2;">demo-config.txt</div>
+                            <div style="font-size: 9px; background: #fff; padding: 3px; border-radius: 3px; margin-top: 5px;">stage2-parameter-store<br>apply</div>
+                        </div>
+                    </div>
+                    
+                    <div style="color: #1976d2; font-size: 20px; margin: 0 10px;">→</div>
+                    
+                    <!-- Step 2: Terraform Init -->
+                    <div style="text-align: center; flex: 1;">
+                        <div style="background: #fff3cd; border: 2px solid #f39c12; border-radius: 10px; padding: 15px;">
+                            <div style="font-size: 20px; margin-bottom: 8px;">⚙️</div>
+                            <div style="font-weight: bold; font-size: 12px; margin-bottom: 5px;">Terraform Init</div>
+                            <div style="font-size: 10px; color: #f39c12;">Initialize backend</div>
+                            <div style="font-size: 9px; background: #fff; padding: 3px; border-radius: 3px; margin-top: 5px;">Download providers<br>Setup state</div>
+                        </div>
+                    </div>
+                    
+                    <div style="color: #f39c12; font-size: 20px; margin: 0 10px;">→</div>
+                    
+                    <!-- Step 3: Query Parameter Store -->
+                    <div style="text-align: center; flex: 1;">
+                        <div style="background: #fff3cd; border: 2px solid #f39c12; border-radius: 10px; padding: 15px;">
+                            <img src="aws-diagrams/Architecture-Service-Icons_06072024/Arch_Management-Governance/32/Arch_AWS-Systems-Manager_32.png" alt="Parameter Store" style="width: 24px; height: 24px; margin-bottom: 5px;">
+                            <div style="font-weight: bold; font-size: 12px; margin-bottom: 5px;">Query Parameters</div>
+                            <div style="font-size: 10px; color: #f39c12;">Fetch configuration</div>
+                            <div style="font-size: 9px; background: #fff; padding: 3px; border-radius: 3px; margin-top: 5px;">/demo/ec2/ami-id<br>/demo/ec2/instance-type</div>
+                        </div>
+                    </div>
+                    
+                    <div style="color: #f39c12; font-size: 20px; margin: 0 10px;">→</div>
+                    
+                    <!-- Step 4: Deploy with Config -->
+                    <div style="text-align: center; flex: 1;">
+                        <div style="background: #e8f5e8; border: 2px solid #27ae60; border-radius: 10px; padding: 15px;">
+                            <div style="font-size: 20px; margin-bottom: 8px;">🚀</div>
+                            <div style="font-weight: bold; font-size: 12px; margin-bottom: 5px;">Deploy with Config</div>
+                            <div style="font-size: 10px; color: #27ae60;">Dynamic values</div>
+                            <div style="font-size: 9px; background: #fff; padding: 3px; border-radius: 3px; margin-top: 5px;">AMI from Parameter<br>Configurable CIDR</div>
+                        </div>
+                    </div>
+                    
+                    <div style="color: #27ae60; font-size: 20px; margin: 0 10px;">→</div>
+                    
+                    <!-- Step 5: EC2 Created -->
+                    <div style="text-align: center; flex: 1;">
+                        <div style="background: #e8f5e8; border: 2px solid #27ae60; border-radius: 10px; padding: 15px;">
+                            <img src="aws-diagrams/Architecture-Service-Icons_06072024/Arch_Compute/32/Arch_Amazon-EC2_32.png" alt="EC2" style="width: 24px; height: 24px; margin-bottom: 5px;">
+                            <div style="font-weight: bold; font-size: 12px; margin-bottom: 5px;">EC2 Instance</div>
+                            <div style="font-size: 10px; color: #27ae60;">Configured setup</div>
+                            <div style="font-size: 9px; background: #fff; padding: 3px; border-radius: 3px; margin-top: 5px;">✅ External config</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div style="text-align: center; margin-top: 15px; padding: 10px; background: #e8f5e8; border-radius: 5px;">
+                    <span style="color: #27ae60; font-size: 12px; font-weight: bold;">✅ Configuration externalized - Terraform queries Parameter Store during deployment</span>
+                </div>
+            </div>
+            
             <div class="code-block">
 # Parameter Store Values (Auto-created)
 /demo/ec2/ami-id = "ami-0779c82fbb81e731c"
@@ -1014,6 +1142,82 @@ terraform init && terraform apply
                 </ul>
             </div>
 
+            <!-- CodeBuild Execution Flow for Stage 3 -->
+            <div style="background: #f8f9fa; border-radius: 10px; padding: 20px; margin: 20px 0; position: relative;">
+                <div style="position: absolute; top: -10px; left: 15px; background: #f8f9fa; padding: 0 10px; font-weight: bold; color: #495057;">CodeBuild Execution Flow - Stage 3</div>
+                
+                <div style="display: flex; justify-content: space-between; align-items: center; margin: 20px 0;">
+                    
+                    <!-- Step 1: Read Config -->
+                    <div style="text-align: center; flex: 1;">
+                        <div style="background: #e3f2fd; border: 2px solid #1976d2; border-radius: 10px; padding: 12px;">
+                            <div style="font-size: 18px; margin-bottom: 5px;">📄</div>
+                            <div style="font-weight: bold; font-size: 11px; margin-bottom: 3px;">Read Config</div>
+                            <div style="font-size: 8px; background: #fff; padding: 2px; border-radius: 2px;">stage3-secrets-manager<br>apply</div>
+                        </div>
+                    </div>
+                    
+                    <div style="color: #1976d2; font-size: 16px; margin: 0 5px;">→</div>
+                    
+                    <!-- Step 2: Terraform Init -->
+                    <div style="text-align: center; flex: 1;">
+                        <div style="background: #fff3cd; border: 2px solid #f39c12; border-radius: 10px; padding: 12px;">
+                            <div style="font-size: 18px; margin-bottom: 5px;">⚙️</div>
+                            <div style="font-weight: bold; font-size: 11px; margin-bottom: 3px;">Terraform Init</div>
+                            <div style="font-size: 8px; background: #fff; padding: 2px; border-radius: 2px;">Initialize backend<br>Setup state</div>
+                        </div>
+                    </div>
+                    
+                    <div style="color: #f39c12; font-size: 16px; margin: 0 5px;">→</div>
+                    
+                    <!-- Step 3: Query Parameter Store -->
+                    <div style="text-align: center; flex: 1;">
+                        <div style="background: #fff3cd; border: 2px solid #f39c12; border-radius: 10px; padding: 12px;">
+                            <img src="aws-diagrams/Architecture-Service-Icons_06072024/Arch_Management-Governance/32/Arch_AWS-Systems-Manager_32.png" alt="Parameter Store" style="width: 20px; height: 20px; margin-bottom: 3px;">
+                            <div style="font-weight: bold; font-size: 11px; margin-bottom: 3px;">Query Parameters</div>
+                            <div style="font-size: 8px; background: #fff; padding: 2px; border-radius: 2px;">/demo/ec2/ami-id<br>/demo/ec2/instance-type</div>
+                        </div>
+                    </div>
+                    
+                    <div style="color: #f39c12; font-size: 16px; margin: 0 5px;">→</div>
+                    
+                    <!-- Step 4: Query Secrets Manager -->
+                    <div style="text-align: center; flex: 1;">
+                        <div style="background: #f3e5f5; border: 2px solid #9b59b6; border-radius: 10px; padding: 12px;">
+                            <img src="aws-diagrams/Architecture-Service-Icons_06072024/Arch_Security-Identity-Compliance/32/Arch_AWS-Secrets-Manager_32.png" alt="Secrets Manager" style="width: 20px; height: 20px; margin-bottom: 3px;">
+                            <div style="font-weight: bold; font-size: 11px; margin-bottom: 3px;">Query Secrets</div>
+                            <div style="font-size: 8px; background: #fff; padding: 2px; border-radius: 2px;">demo/app/api-key<br>🔒 Encrypted</div>
+                        </div>
+                    </div>
+                    
+                    <div style="color: #9b59b6; font-size: 16px; margin: 0 5px;">→</div>
+                    
+                    <!-- Step 5: Deploy with Secrets -->
+                    <div style="text-align: center; flex: 1;">
+                        <div style="background: #e8f5e8; border: 2px solid #27ae60; border-radius: 10px; padding: 12px;">
+                            <div style="font-size: 18px; margin-bottom: 5px;">🚀</div>
+                            <div style="font-weight: bold; font-size: 11px; margin-bottom: 3px;">Deploy Secure</div>
+                            <div style="font-size: 8px; background: #fff; padding: 2px; border-radius: 2px;">Config + Secrets<br>Enterprise ready</div>
+                        </div>
+                    </div>
+                    
+                    <div style="color: #27ae60; font-size: 16px; margin: 0 5px;">→</div>
+                    
+                    <!-- Step 6: EC2 Created -->
+                    <div style="text-align: center; flex: 1;">
+                        <div style="background: #e8f5e8; border: 2px solid #27ae60; border-radius: 10px; padding: 12px;">
+                            <img src="aws-diagrams/Architecture-Service-Icons_06072024/Arch_Compute/32/Arch_Amazon-EC2_32.png" alt="EC2" style="width: 20px; height: 20px; margin-bottom: 3px;">
+                            <div style="font-weight: bold; font-size: 11px; margin-bottom: 3px;">EC2 Instance</div>
+                            <div style="font-size: 8px; background: #fff; padding: 2px; border-radius: 2px;">🔐 Secure setup</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div style="text-align: center; margin-top: 15px; padding: 10px; background: #f3e5f5; border-radius: 5px;">
+                    <span style="color: #9b59b6; font-size: 12px; font-weight: bold;">🔐 Enterprise Security - Terraform queries both Parameter Store AND Secrets Manager during deployment</span>
+                </div>
+            </div>
+            
             <div class="highlight">
                 <strong>Cost vs Security:</strong> Secrets Manager costs ~$0.40/month per secret, but prevents costly security breaches (average cost: $4.45M)
             </div>
@@ -1201,6 +1405,82 @@ terraform init && terraform apply
                 </div>
                 <div class="demo-step">
                     <strong>Production Environment:</strong> Red background, "🚨 PRODUCTION", t2.small, manual approval required
+                </div>
+                
+                <!-- CodeBuild Execution Flow for Stage 4 -->
+                <div style="background: #f8f9fa; border-radius: 10px; padding: 20px; margin: 20px 0; position: relative;">
+                    <div style="position: absolute; top: -10px; left: 15px; background: #f8f9fa; padding: 0 10px; font-weight: bold; color: #495057;">CodeBuild Execution Flow - Stage 4</div>
+                    
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin: 20px 0;">
+                        
+                        <!-- Step 1: Read Config with Environment -->
+                        <div style="text-align: center; flex: 1;">
+                            <div style="background: #e3f2fd; border: 2px solid #1976d2; border-radius: 10px; padding: 10px;">
+                                <div style="font-size: 16px; margin-bottom: 3px;">📄</div>
+                                <div style="font-weight: bold; font-size: 10px; margin-bottom: 2px;">Read Config</div>
+                                <div style="font-size: 7px; background: #fff; padding: 2px; border-radius: 2px;">stage4-manual-approval<br>apply<br><strong>prod</strong></div>
+                            </div>
+                        </div>
+                        
+                        <div style="color: #1976d2; font-size: 14px; margin: 0 3px;">→</div>
+                        
+                        <!-- Step 2: Terraform Init -->
+                        <div style="text-align: center; flex: 1;">
+                            <div style="background: #fff3cd; border: 2px solid #f39c12; border-radius: 10px; padding: 10px;">
+                                <div style="font-size: 16px; margin-bottom: 3px;">⚙️</div>
+                                <div style="font-weight: bold; font-size: 10px; margin-bottom: 2px;">Terraform Init</div>
+                                <div style="font-size: 7px; background: #fff; padding: 2px; border-radius: 2px;">Initialize<br>Set env=prod</div>
+                            </div>
+                        </div>
+                        
+                        <div style="color: #f39c12; font-size: 14px; margin: 0 3px;">→</div>
+                        
+                        <!-- Step 3: Query Prod Parameters -->
+                        <div style="text-align: center; flex: 1;">
+                            <div style="background: #fff3cd; border: 2px solid #f39c12; border-radius: 10px; padding: 10px;">
+                                <img src="aws-diagrams/Architecture-Service-Icons_06072024/Arch_Management-Governance/32/Arch_AWS-Systems-Manager_32.png" alt="Parameter Store" style="width: 16px; height: 16px; margin-bottom: 2px;">
+                                <div style="font-weight: bold; font-size: 10px; margin-bottom: 2px;">Query Prod Params</div>
+                                <div style="font-size: 7px; background: #fff; padding: 2px; border-radius: 2px;">/demo/prod/ec2/<br>instance-type</div>
+                            </div>
+                        </div>
+                        
+                        <div style="color: #f39c12; font-size: 14px; margin: 0 3px;">→</div>
+                        
+                        <!-- Step 4: Query Prod Secrets -->
+                        <div style="text-align: center; flex: 1;">
+                            <div style="background: #f3e5f5; border: 2px solid #9b59b6; border-radius: 10px; padding: 10px;">
+                                <img src="aws-diagrams/Architecture-Service-Icons_06072024/Arch_Security-Identity-Compliance/32/Arch_AWS-Secrets-Manager_32.png" alt="Secrets Manager" style="width: 16px; height: 16px; margin-bottom: 2px;">
+                                <div style="font-weight: bold; font-size: 10px; margin-bottom: 2px;">Query Prod Secrets</div>
+                                <div style="font-size: 7px; background: #fff; padding: 2px; border-radius: 2px;">demo/prod/app/<br>api-key</div>
+                            </div>
+                        </div>
+                        
+                        <div style="color: #9b59b6; font-size: 14px; margin: 0 3px;">→</div>
+                        
+                        <!-- Step 5: Deploy Production -->
+                        <div style="text-align: center; flex: 1;">
+                            <div style="background: #ffebee; border: 2px solid #e74c3c; border-radius: 10px; padding: 10px;">
+                                <div style="font-size: 16px; margin-bottom: 3px;">🚀</div>
+                                <div style="font-weight: bold; font-size: 10px; margin-bottom: 2px;">Deploy Production</div>
+                                <div style="font-size: 7px; background: #fff; padding: 2px; border-radius: 2px;">t2.small instance<br>Prod credentials</div>
+                            </div>
+                        </div>
+                        
+                        <div style="color: #e74c3c; font-size: 14px; margin: 0 3px;">→</div>
+                        
+                        <!-- Step 6: Production EC2 -->
+                        <div style="text-align: center; flex: 1;">
+                            <div style="background: #ffebee; border: 2px solid #e74c3c; border-radius: 10px; padding: 10px;">
+                                <img src="aws-diagrams/Architecture-Service-Icons_06072024/Arch_Compute/32/Arch_Amazon-EC2_32.png" alt="EC2" style="width: 16px; height: 16px; margin-bottom: 2px;">
+                                <div style="font-weight: bold; font-size: 10px; margin-bottom: 2px;">Production EC2</div>
+                                <div style="font-size: 7px; background: #fff; padding: 2px; border-radius: 2px;">🚨 Red theme</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div style="text-align: center; margin-top: 15px; padding: 10px; background: #ffebee; border-radius: 5px;">
+                        <span style="color: #e74c3c; font-size: 12px; font-weight: bold;">🚨 Environment-Aware Deployment - Terraform uses environment variable to query prod-specific resources</span>
+                    </div>
                 </div>
                 
                 <div class="demo-step">
