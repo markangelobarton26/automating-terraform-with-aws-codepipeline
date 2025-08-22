@@ -378,33 +378,80 @@
 
         <!-- Pipeline Infrastructure -->
         <div class="slide">
-            <h2>🏗️ Pipeline Infrastructure Components</h2>
+            <h2>🏗️ Pipeline Infrastructure Diagram</h2>
             
-            <div class="components-list">
-                <h3>Core Infrastructure</h3>
-                <ul>
-                    <li><strong>AWS CodePipeline:</strong> Orchestrates the CI/CD workflow</li>
-                    <li><strong>AWS CodeBuild:</strong> Executes Terraform commands</li>
-                    <li><strong>S3 Buckets:</strong> Stores pipeline artifacts and Terraform state</li>
-                    <li><strong>IAM Roles & Policies:</strong> Secure access control</li>
-                    <li><strong>GitHub Connection:</strong> Source code integration</li>
-                </ul>
+            <div class="architecture-diagram">
+                <h3>Pipeline Flow</h3>
+                <div style="display: flex; align-items: center; justify-content: space-between; margin: 30px 0; flex-wrap: wrap;">
+                    <div style="background: #f6f8fa; border: 2px solid #24292e; border-radius: 10px; padding: 20px; margin: 10px; text-align: center; min-width: 150px;">
+                        <img src="aws-diagrams/github.png" alt="GitHub" style="width: 48px; height: 48px; margin-bottom: 8px;">
+                        <h4>GitHub</h4>
+                        <p>Source Repository</p>
+                        <small>Terraform Code<br>Buildspec.yml</small>
+                    </div>
+                    
+                    <div class="aws-arrow">→</div>
+                    
+                    <div style="background: #fff3cd; border: 2px solid #ffc107; border-radius: 10px; padding: 20px; margin: 10px; text-align: center; min-width: 150px;">
+                        <img src="aws-diagrams/Architecture-Service-Icons_06072024/Arch_Developer-Tools/32/Arch_AWS-CodePipeline_32.png" alt="CodePipeline" style="width: 48px; height: 48px; margin-bottom: 8px;">
+                        <h4>CodePipeline</h4>
+                        <p>Orchestration</p>
+                        <small>Source Stage<br>Deploy Stage</small>
+                    </div>
+                    
+                    <div class="aws-arrow">→</div>
+                    
+                    <div style="background: #d4edda; border: 2px solid #28a745; border-radius: 10px; padding: 20px; margin: 10px; text-align: center; min-width: 150px;">
+                        <img src="aws-diagrams/Architecture-Service-Icons_06072024/Arch_Developer-Tools/32/Arch_AWS-CodeBuild_32.png" alt="CodeBuild" style="width: 48px; height: 48px; margin-bottom: 8px;">
+                        <h4>CodeBuild</h4>
+                        <p>Build & Deploy</p>
+                        <small>Terraform Init<br>Plan & Apply</small>
+                    </div>
+                    
+                    <div class="aws-arrow">→</div>
+                    
+                    <div style="background: #fff2e6; border: 2px solid #fd7e14; border-radius: 10px; padding: 20px; margin: 10px; text-align: center; min-width: 150px;">
+                        <img src="aws-diagrams/Architecture-Service-Icons_06072024/Arch_Compute/32/Arch_Amazon-EC2_32.png" alt="EC2" style="width: 48px; height: 48px; margin-bottom: 8px;">
+                        <h4>AWS Resources</h4>
+                        <p>Infrastructure</p>
+                        <small>EC2, Security Groups<br>Parameter Store, Secrets</small>
+                    </div>
+                </div>
             </div>
 
             <div class="components-list">
-                <h3>Prerequisites (Auto-Created)</h3>
-                <ul>
-                    <li><strong>Parameter Store:</strong> /demo/ec2/instance-type, /demo/ec2/ami-id</li>
-                    <li><strong>Secrets Manager:</strong> demo/app/api-key, demo/test/*, demo/prod/*</li>
-                    <li><strong>Environment Configs:</strong> Test and production parameters</li>
-                </ul>
+                <h3>Supporting Infrastructure</h3>
+                <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin: 20px 0;">
+                    <div style="background: #e8f5e8; border: 1px solid #28a745; border-radius: 8px; padding: 15px; text-align: center;">
+                        <h4>📦 S3 Buckets</h4>
+                        <ul style="text-align: left; font-size: 12px;">
+                            <li>Pipeline Artifacts</li>
+                            <li>Terraform State</li>
+                        </ul>
+                    </div>
+                    
+                    <div style="background: #fff3cd; border: 1px solid #ffc107; border-radius: 8px; padding: 15px; text-align: center;">
+                        <h4>🔐 IAM Roles</h4>
+                        <ul style="text-align: left; font-size: 12px;">
+                            <li>CodePipeline Role</li>
+                            <li>CodeBuild Role</li>
+                        </ul>
+                    </div>
+                    
+                    <div style="background: #f8f9fa; border: 1px solid #dee2e6; border-radius: 8px; padding: 15px; text-align: center;">
+                        <h4>⚙️ CodeBuild Project</h4>
+                        <ul style="text-align: left; font-size: 12px;">
+                            <li>Standard 5.0 Image</li>
+                            <li>Small Compute</li>
+                        </ul>
+                    </div>
+                </div>
             </div>
 
             <div class="code-block">
 # Deploy Pipeline Infrastructure (One-time)
 cd pipeline-infrastructure
-terraform init
-terraform apply
+terraform init && terraform apply
 
 # Creates: Pipeline + Prerequisites + S3 + IAM
             </div>
@@ -618,59 +665,107 @@ terraform apply
             <div class="demo-flow">
                 <h3>Environment Differences</h3>
                 <div class="demo-step">
-                    <strong>Test:</strong> Teal background, "🧪 TEST", t2.micro, auto-deploy
+                    <strong>Test Environment:</strong> Teal background, "🧪 TEST", t2.micro, auto-deploy
                 </div>
                 <div class="demo-step">
-                    <strong>Production:</strong> Red background, "🚨 PRODUCTION", t2.small, manual approval
+                    <strong>Production Environment:</strong> Red background, "🚨 PRODUCTION", t2.small, manual approval required
+                </div>
+                
+                <div class="demo-step">
+                    <strong>Access Applications:</strong>
+                    <div class="code-block"># Visit deployed applications
+http://&lt;EC2_PUBLIC_IP&gt;:80
+
+# Ports used: 80 (HTTP), 22 (SSH)
+# Stage 1: Open to 0.0.0.0/0 (insecure)
+# Stage 2-4: Restricted to Parameter Store CIDR</div>
                 </div>
             </div>
         </div>
 
         <!-- Demo Workflow -->
         <div class="slide">
-            <h2>🎬 Live Demo Workflow</h2>
+            <h2>🎬 Complete Deployment Commands</h2>
             
             <div class="demo-flow">
-                <h3>Demo Script</h3>
+                <h3>Deploy Each Stage</h3>
                 
                 <div class="demo-step">
-                    <strong>1. Deploy Stage 1 (Show Problems)</strong>
-                    <div class="code-block">echo -e "stage1-basic-ec2\napply" > demo-config.txt && git push</div>
-                    <p>Point out: Hardcoded AMI, open security groups, no config management</p>
+                    <strong>Stage 1: Basic EC2 (Hardcoded Values)</strong>
+                    <div class="code-block">echo -e "stage1-basic-ec2\napply" > demo-config.txt
+git add demo-config.txt
+git commit -m "Deploy Stage 1: Basic EC2 with hardcoded values"
+git push origin main</div>
+                    <p>Deploys: EC2 with hardcoded AMI, open security groups (0.0.0.0/0)</p>
                 </div>
 
                 <div class="demo-step">
-                    <strong>2. Deploy Stage 2 (Configuration Management)</strong>
-                    <div class="code-block">echo -e "stage2-parameter-store\napply" > demo-config.txt && git push</div>
-                    <p>Show: Parameter Store integration, dynamic AMI, externalized config</p>
+                    <strong>Stage 2: Parameter Store Integration</strong>
+                    <div class="code-block">echo -e "stage2-parameter-store\napply" > demo-config.txt
+git add demo-config.txt
+git commit -m "Deploy Stage 2: Parameter Store integration"
+git push origin main</div>
+                    <p>Deploys: EC2 with Parameter Store config, restricted CIDR</p>
                 </div>
 
                 <div class="demo-step">
-                    <strong>3. Deploy Stage 3 (Enterprise Security)</strong>
-                    <div class="code-block">echo -e "stage3-secrets-manager\napply" > demo-config.txt && git push</div>
-                    <p>Demonstrate: Encrypted secrets, audit trails, no secrets in code</p>
+                    <strong>Stage 3: Secrets Manager Integration</strong>
+                    <div class="code-block">echo -e "stage3-secrets-manager\napply" > demo-config.txt
+git add demo-config.txt
+git commit -m "Deploy Stage 3: Secrets Manager enterprise security"
+git push origin main</div>
+                    <p>Deploys: EC2 with encrypted secrets, enterprise-grade security</p>
                 </div>
 
                 <div class="demo-step">
-                    <strong>4. Deploy Stage 4 (Production Workflow)</strong>
-                    <div class="code-block">echo -e "stage4-manual-approval\napply" > demo-config.txt && git push</div>
-                    <p>Show: Environment separation, approval workflows, governance</p>
+                    <strong>Stage 4: Manual Approval Workflow</strong>
+                    <div class="code-block">echo -e "stage4-manual-approval\napply" > demo-config.txt
+git add demo-config.txt
+git commit -m "Deploy Stage 4: Production workflow with manual approval"
+git push origin main</div>
+                    <p>Deploys: Environment-specific resources with approval gates</p>
                 </div>
+            </div>
+        </div>
 
-                <div class="demo-step">
-                    <strong>5. Destroy Individual Stages</strong>
-                    <div class="code-block"># Destroy any specific stage
-echo -e "stage1-basic-ec2\ndestroy" > demo-config.txt && git push
-echo -e "stage2-parameter-store\ndestroy" > demo-config.txt && git push
-echo -e "stage3-secrets-manager\ndestroy" > demo-config.txt && git push
-echo -e "stage4-manual-approval\ndestroy" > demo-config.txt && git push</div>
-                    <p>Demonstrate: Selective resource cleanup per stage</p>
-                </div>
+        <!-- Destroy Commands -->
+        <div class="slide">
+            <h2>🗑️ Destroy Commands</h2>
+            
+            <div class="demo-flow">
+                <h3>Individual Stage Cleanup</h3>
                 
                 <div class="demo-step">
-                    <strong>6. Complete Cleanup</strong>
-                    <div class="code-block">echo -e "stage4-manual-approval\ndestroy" > demo-config.txt && git push</div>
-                    <p>Demonstrate: Complete infrastructure teardown</p>
+                    <strong>Destroy Stage 1</strong>
+                    <div class="code-block">echo -e "stage1-basic-ec2\ndestroy" > demo-config.txt
+git add demo-config.txt
+git commit -m "Destroy Stage 1: Remove basic EC2 resources"
+git push origin main</div>
+                </div>
+
+                <div class="demo-step">
+                    <strong>Destroy Stage 2</strong>
+                    <div class="code-block">echo -e "stage2-parameter-store\ndestroy" > demo-config.txt
+git add demo-config.txt
+git commit -m "Destroy Stage 2: Remove Parameter Store resources"
+git push origin main</div>
+                </div>
+
+                <div class="demo-step">
+                    <strong>Destroy Stage 3</strong>
+                    <div class="code-block">echo -e "stage3-secrets-manager\ndestroy" > demo-config.txt
+git add demo-config.txt
+git commit -m "Destroy Stage 3: Remove Secrets Manager resources"
+git push origin main</div>
+                </div>
+
+                <div class="demo-step">
+                    <strong>Destroy Stage 4 (Complete Cleanup)</strong>
+                    <div class="code-block">echo -e "stage4-manual-approval\ndestroy" > demo-config.txt
+git add demo-config.txt
+git commit -m "Complete cleanup: Destroy all demo resources"
+git push origin main</div>
+                    <p>Removes all infrastructure and returns to clean state</p>
                 </div>
             </div>
         </div>

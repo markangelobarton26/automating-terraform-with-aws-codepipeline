@@ -12,7 +12,7 @@ resource "aws_ssm_parameter" "instance_type" {
 resource "aws_ssm_parameter" "allowed_cidr" {
   name  = "/demo/security/allowed-cidr"
   type  = "String"
-  value = "0.0.0.0/0"  # You can change this to your IP
+  value = "0.0.0.0/0"  # Change this to your IP/32 for better security
   
   tags = {
     Name = "Demo Allowed CIDR"
