@@ -26,17 +26,20 @@ resource "aws_codepipeline" "terraform_pipeline" {
     }
   }
 
-  stage {
-    name = "Approval"
-    action {
-      name     = "Manual-Approval"
-      category = "Approval"
-      owner    = "AWS"
-      provider = "Manual"
-      version  = "1"
+  dynamic "stage" {
+    for_each = var.enable_manual_approval ? [1] : []
+    content {
+      name = "Approval"
+      action {
+        name     = "Manual-Approval"
+        category = "Approval"
+        owner    = "AWS"
+        provider = "Manual"
+        version  = "1"
 
-      configuration = {
-        CustomData = "Please review the deployment and approve to proceed with Terraform apply."
+        configuration = {
+          CustomData = "Please review the deployment and approve to proceed with Terraform apply."
+        }
       }
     }
   }

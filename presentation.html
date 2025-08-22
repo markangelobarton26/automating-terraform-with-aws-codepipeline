@@ -781,37 +781,41 @@ echo -e "stage2-parameter-store\napply" > demo-config.txt
                 
                 <div class="demo-step">
                     <strong>Stage 1: Basic EC2 (Hardcoded Values)</strong>
-                    <div class="code-block">echo -e "stage1-basic-ec2\napply" > demo-config.txt
-git add .
-git commit -m "Deploy Stage 1"
-git push</div>
+                    <div class="code-block"># Copy and paste each command separately:
+echo -e "stage1-basic-ec2\napply" > demo-config.txt</div>
+                    <div class="code-block">git add .</div>
+                    <div class="code-block">git commit -m "Deploy Stage 1"</div>
+                    <div class="code-block">git push</div>
                     <p>Deploys: EC2 with hardcoded AMI, open security groups (0.0.0.0/0)</p>
                 </div>
 
                 <div class="demo-step">
                     <strong>Stage 2: Parameter Store Integration</strong>
-                    <div class="code-block">echo -e "stage2-parameter-store\napply" > demo-config.txt
-git add .
-git commit -m "Deploy Stage 2"
-git push</div>
+                    <div class="code-block"># Copy and paste each command separately:
+echo -e "stage2-parameter-store\napply" > demo-config.txt</div>
+                    <div class="code-block">git add .</div>
+                    <div class="code-block">git commit -m "Deploy Stage 2"</div>
+                    <div class="code-block">git push</div>
                     <p>Deploys: EC2 with Parameter Store config, restricted CIDR</p>
                 </div>
 
                 <div class="demo-step">
                     <strong>Stage 3: Secrets Manager Integration</strong>
-                    <div class="code-block">echo -e "stage3-secrets-manager\napply" > demo-config.txt
-git add .
-git commit -m "Deploy Stage 3"
-git push</div>
+                    <div class="code-block"># Copy and paste each command separately:
+echo -e "stage3-secrets-manager\napply" > demo-config.txt</div>
+                    <div class="code-block">git add .</div>
+                    <div class="code-block">git commit -m "Deploy Stage 3"</div>
+                    <div class="code-block">git push</div>
                     <p>Deploys: EC2 with encrypted secrets, enterprise-grade security</p>
                 </div>
 
                 <div class="demo-step">
                     <strong>Stage 4: Manual Approval Workflow</strong>
-                    <div class="code-block">echo -e "stage4-manual-approval\napply" > demo-config.txt
-git add .
-git commit -m "Deploy Stage 4"
-git push</div>
+                    <div class="code-block"># Copy and paste each command separately:
+echo -e "stage4-manual-approval\napply" > demo-config.txt</div>
+                    <div class="code-block">git add .</div>
+                    <div class="code-block">git commit -m "Deploy Stage 4"</div>
+                    <div class="code-block">git push</div>
                     <p>Deploys: Environment-specific resources with approval gates</p>
                 </div>
             </div>

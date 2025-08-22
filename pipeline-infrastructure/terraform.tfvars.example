@@ -6,3 +6,6 @@ github_branch         = "main"
 # Project Configuration
 project_name = "terraform-demo"
 aws_region   = "us-east-1"
+
+# Pipeline Configuration
+enable_manual_approval = false  # Set to true to enable manual approval stage

@@ -26,3 +26,9 @@ variable "github_branch" {
   default     = "main"
 }
 
+variable "enable_manual_approval" {
+  description = "Enable manual approval stage in pipeline"
+  type        = bool
+  default     = false
+}
+
