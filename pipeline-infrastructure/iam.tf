@@ -53,7 +53,8 @@ resource "aws_iam_role_policy" "codebuild_policy" {
           "ssm:GetParameter",
           "ssm:GetParameters",
           "secretsmanager:GetSecretValue",
-          "secretsmanager:DescribeSecret"
+          "secretsmanager:DescribeSecret",
+          "secretsmanager:GetResourcePolicy"
         ]
         Resource = "*"
       }
