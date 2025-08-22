@@ -79,7 +79,26 @@ echo -e "stage4-manual-approval\napply" > demo-config.txt
 git add . && git commit -m "Deploy Stage 4: Manual Approval" && git push
 ```
 
-### Cleanup (Destroy All Resources)
+### Destroy Individual Stages
+```bash
+# Destroy Stage 1
+echo -e "stage1-basic-ec2\ndestroy" > demo-config.txt
+git add . && git commit -m "Destroy Stage 1" && git push
+
+# Destroy Stage 2
+echo -e "stage2-parameter-store\ndestroy" > demo-config.txt
+git add . && git commit -m "Destroy Stage 2" && git push
+
+# Destroy Stage 3
+echo -e "stage3-secrets-manager\ndestroy" > demo-config.txt
+git add . && git commit -m "Destroy Stage 3" && git push
+
+# Destroy Stage 4
+echo -e "stage4-manual-approval\ndestroy" > demo-config.txt
+git add . && git commit -m "Destroy Stage 4" && git push
+```
+
+### Complete Cleanup (Destroy All Resources)
 ```bash
 echo -e "stage4-manual-approval\ndestroy" > demo-config.txt
 git add . && git commit -m "Cleanup: Destroy all resources" && git push
@@ -99,8 +118,11 @@ echo -e "stage3-secrets-manager\napply" > demo-config.txt && git add . && git co
 # Stage 4
 echo -e "stage4-manual-approval\napply" > demo-config.txt && git add . && git commit -m "Stage 4" && git push
 
-# Cleanup
-echo -e "stage4-manual-approval\ndestroy" > demo-config.txt && git add . && git commit -m "Cleanup" && git push
+# Destroy any stage
+echo -e "stage1-basic-ec2\ndestroy" > demo-config.txt && git add . && git commit -m "Destroy Stage 1" && git push
+echo -e "stage2-parameter-store\ndestroy" > demo-config.txt && git add . && git commit -m "Destroy Stage 2" && git push
+echo -e "stage3-secrets-manager\ndestroy" > demo-config.txt && git add . && git commit -m "Destroy Stage 3" && git push
+echo -e "stage4-manual-approval\ndestroy" > demo-config.txt && git add . && git commit -m "Destroy Stage 4" && git push
 ```
 
 ## 📁 Repository Structure

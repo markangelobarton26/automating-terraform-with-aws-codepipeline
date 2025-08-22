@@ -658,9 +658,19 @@ terraform apply
                 </div>
 
                 <div class="demo-step">
-                    <strong>5. Cleanup (Destroy Resources)</strong>
+                    <strong>5. Destroy Individual Stages</strong>
+                    <div class="code-block"># Destroy any specific stage
+echo -e "stage1-basic-ec2\ndestroy" > demo-config.txt && git push
+echo -e "stage2-parameter-store\ndestroy" > demo-config.txt && git push
+echo -e "stage3-secrets-manager\ndestroy" > demo-config.txt && git push
+echo -e "stage4-manual-approval\ndestroy" > demo-config.txt && git push</div>
+                    <p>Demonstrate: Selective resource cleanup per stage</p>
+                </div>
+                
+                <div class="demo-step">
+                    <strong>6. Complete Cleanup</strong>
                     <div class="code-block">echo -e "stage4-manual-approval\ndestroy" > demo-config.txt && git push</div>
-                    <p>Demonstrate: Easy cleanup using same pipeline</p>
+                    <p>Demonstrate: Complete infrastructure teardown</p>
                 </div>
             </div>
         </div>
