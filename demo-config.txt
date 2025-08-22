@@ -1,2 +1,2 @@
 stage1-basic-ec2
-destroy
+apply
