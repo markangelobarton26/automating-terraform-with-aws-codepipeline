@@ -1,6 +1,6 @@
 terraform {
   backend "s3" {
-    bucket = "anthony-terraform-tfstate"
+    bucket = "bartz2-devops-terraform-tfstate"
     key    = "automating-terraform-with-aws-codepipeline/terraform.tfstate"
     region = "ap-southeast-1"
   }
@@ -14,6 +14,7 @@ terraform {
 }
 
 provider "aws" {
+  profile = ""
   region = var.aws_region
 }
 
