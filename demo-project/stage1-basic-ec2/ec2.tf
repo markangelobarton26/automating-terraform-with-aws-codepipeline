@@ -16,7 +16,7 @@ resource "aws_instance" "web_server" {
               EOF
 
   tags = {
-    Name        = "demo-web-server-stage1"
+    Name        = "bartz-sample"
     Environment = "demo"
     Stage       = "1-basic"
   }
